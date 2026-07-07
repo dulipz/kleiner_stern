@@ -1,0 +1,149 @@
+---
+const { pathname } = Astro.url;
+const links = [
+  { href: '/', label: 'Start' },
+  { href: '/ueber', label: 'Über' },
+  { href: '/shop', label: 'Shop' },
+  { href: '/presse', label: 'Presse' },
+  { href: '/partner', label: 'Partner' },
+];
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="brand">
+      <span class="script logo">Enila</span>
+      <span class="eyebrow sub">Kleiner Stern ganz groß</span>
+    </a>
+    <nav aria-label="Hauptnavigation">
+      <ul>
+        {links.map((l) => (
+          <li>
+            <a href={l.href} class:list={[{ active: isActive(l.href) }]}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 50;
+    padding: 1.2rem 0;
+    background: linear-gradient(to bottom, rgba(10, 12, 13, 0.55), transparent);
+    transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* solid once the page is scrolled */
+  .site-header.scrolled {
+    padding: 0.7rem 0;
+    background: rgba(16, 20, 21, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    line-height: 1.1;
+  }
+
+  .logo {
+    font-size: 1.9rem;
+    text-shadow: 0 0 24px rgba(232, 201, 160, 0.4);
+  }
+
+  .sub { font-size: 0.55rem; letter-spacing: 0.28em; }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 3vw, 2.2rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  nav a:hover { color: var(--gold-soft); }
+
+  nav a.active {
+    color: var(--gold-soft);
+    border-bottom-color: var(--gold-dim);
+  }
+
+  @media (max-width: 720px) {
+    /* compact header - same transparent gradient as desktop;
+       turns light grey after scrolling (via .scrolled) */
+    .site-header { padding: 0.7rem 0; }
+    .bar {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      gap: 0.6rem;
+    }
+    .logo { font-size: 1.45rem; }
+    .sub { display: none; }
+
+    /* all 5 links on ONE line */
+    ul {
+      flex-wrap: nowrap;
+      gap: clamp(0.7rem, 3vw, 1.1rem);
+      justify-content: center;
+    }
+    nav a {
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    /* light grey menu once scrolled */
+    .site-header.scrolled {
+      background: rgba(213, 220, 222, 0.96);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+    }
+    .site-header.scrolled nav a { color: #263034; }
+    .site-header.scrolled nav a:hover,
+    .site-header.scrolled nav a.active { color: #8a6a35; }
+    .site-header.scrolled .logo {
+      color: #8a6a35;
+      text-shadow: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header { transition: none; }
+  }
+</style>
+
+<script>
+  const header = document.querySelector('.site-header');
+  const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

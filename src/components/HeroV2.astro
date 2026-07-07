@@ -1,0 +1,235 @@
+---
+// Hero V2 - full-bleed photo background, black & white text.
+// Pattern modeled on Lanka Reisen's Hero.astro (absolute object-cover image,
+// gradient overlays, content anchored bottom-left).
+//
+// Photo: save the ribbon image as  public/images/hero-ribbon.jpg
+---
+<header class="hero2">
+  <img
+    class="hero2-img"
+    src="/images/hero-ribbon.jpg"
+    alt="Kinderhand hält eine goldene Schleife, Symbol für krebskranke Kinder"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+
+  <!-- overlays: darken top + bottom for readable text (Lanka Reisen pattern) -->
+  <div class="hero2-overlay" aria-hidden="true"></div>
+  <div class="hero2-fade" aria-hidden="true"></div>
+
+  <div class="container hero2-content">
+    <p class="eyebrow hero2-eyebrow">
+      Ein Song &nbsp;·&nbsp; Eine Mission &nbsp;·&nbsp; Ein Herz für Kinder
+    </p>
+
+    <h1 class="hero2-title">
+      <span class="script hero2-script">Kleiner Stern</span>
+      <span class="serif hero2-serif">Ganz Gross</span>
+    </h1>
+
+    <p class="hero2-sub">
+      Für 0,99 € einen Song. Für ein Kind einen kleinen Stern.<br />
+      <strong>50 %</strong> gehen direkt an krebskranke Kinder.
+    </p>
+
+    <div class="hero2-actions">
+      <button class="btn-bw js-buy-song">♫ &nbsp;Jetzt anhören · 0,99 €</button>
+      <a href="#quote" class="btn-bw-ghost">Mehr erfahren</a>
+    </div>
+  </div>
+
+  <a href="#quote" class="hero2-scroll" aria-label="Weiter scrollen">
+    <span>Weiter</span>
+    <svg width="16" height="28" viewBox="0 0 16 28" fill="none">
+      <path d="M8 2 V24 M2 18 L8 25 L14 18" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+  </a>
+</header>
+
+<style>
+  .hero2 {
+    position: relative;
+    isolation: isolate;
+    min-height: 88svh;
+    display: flex;
+    overflow: hidden;
+    background: var(--bg-navy); /* fallback while photo loads / if missing */
+  }
+
+  .hero2-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 65% center; /* keep ribbon + hand visible */
+  }
+
+  /* dark gradient: stronger at bottom where the text sits */
+  .hero2-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 10, 12, 0.55) 0%,
+      rgba(10, 10, 12, 0.25) 40%,
+      rgba(10, 10, 12, 0.78) 100%
+    );
+  }
+
+  /* bottom fade into the next (dark) section */
+  .hero2-fade {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 8rem;
+    background: linear-gradient(to top, var(--bg-deep), transparent);
+  }
+
+  .hero2-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 1.4rem;
+    padding: 8rem 0 7rem;
+  }
+
+  .hero2-eyebrow { color: rgba(255, 255, 255, 0.85); }
+
+  .hero2-title { display: flex; flex-direction: column; }
+
+  .hero2-script {
+    color: #ffffff;
+    font-size: clamp(3.2rem, 9vw, 6rem);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.55);
+  }
+
+  .hero2-serif {
+    color: #ffffff;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero2-sub {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.8;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+    max-width: 34em;
+  }
+
+  .hero2-sub strong { color: #ffffff; font-weight: 500; }
+
+  .hero2-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  /* ---------- black & white buttons ---------- */
+  .btn-bw {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #ffffff;
+    color: #0d0e14;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.05rem 2.4rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn-bw:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn-bw-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 4px;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: background 0.25s ease;
+  }
+
+  .btn-bw-ghost:hover { background: rgba(255, 255, 255, 0.18); }
+
+  .hero2-scroll {
+    position: absolute;
+    bottom: 1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    animation: floaty2 2.6s ease-in-out infinite;
+  }
+
+  @keyframes floaty2 {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  @media (max-width: 720px) {
+    /* photo as full background (cover), shifted so the ribbon sits centered */
+    .hero2-img { object-position: 76% center; }
+
+    .hero2-content {
+      align-items: center;
+      text-align: center;
+      justify-content: flex-start;
+      padding: 9.5rem 0 6rem;
+    }
+
+    /* smaller, equal-sized, centered buttons */
+    .hero2-actions {
+      justify-content: center;
+      width: 100%;
+    }
+    .btn-bw, .btn-bw-ghost {
+      font-size: 0.75rem;
+      padding: 0.85rem 1.5rem;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero2-scroll { animation: none; }
+  }
+</style>

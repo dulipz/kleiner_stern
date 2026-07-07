@@ -1,0 +1,35 @@
+---
+// Second section - quote on the slate/shady-black gradient (no photo).
+---
+<section id="quote" class="quote">
+  <div class="container reveal quote-content">
+    <p class="serif quote-main">
+      Manche Kämpfe sind unsichtbar.<br />Manche Helden sind klein.
+    </p>
+    <p class="serif quote-accent">Dieser Song trägt sie.</p>
+  </div>
+</section>
+
+<style>
+  .quote {
+    position: relative;
+    text-align: center;
+    /* shady black fading into the slate grey of the next section */
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 45%, rgba(61, 73, 77, 0.35), transparent 75%),
+      linear-gradient(180deg, var(--bg-deep) 0%, #1d2427 55%, var(--bg-night) 100%);
+  }
+
+  .quote-main {
+    font-style: italic;
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    line-height: 1.45;
+  }
+
+  .quote-accent {
+    font-style: italic;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--gold-soft);
+    margin-top: 1.8rem;
+  }
+</style>

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+oldsite_images/
+oldsite.html
+# source assets (optimized copies live in public/images)
+Images/

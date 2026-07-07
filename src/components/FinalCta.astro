@@ -1,0 +1,177 @@
+---
+---
+<section class="cta">
+  <div class="container reveal">
+    <h2 class="serif heading">Werde Teil dieser Geschichte.</h2>
+    <p class="serif sub">Für 0,99 € einen Song. Für ein Kind einen kleinen Stern.</p>
+
+    <div class="actions">
+      <button class="btn-gold js-buy-song">♫ &nbsp;Jetzt anhören · 0,99 €</button>
+      <button class="btn-ghost js-donate">♥ &nbsp;Frei spenden</button>
+    </div>
+
+    <div class="donate-panel" id="donate-panel" hidden>
+      <p class="eyebrow eyebrow--gold">Deine Spende: 100 % für die Mission</p>
+      <div class="amounts">
+        <button class="amount" data-amount="500">5 €</button>
+        <button class="amount" data-amount="1000">10 €</button>
+        <button class="amount" data-amount="2500">25 €</button>
+        <button class="amount" data-amount="5000">50 €</button>
+        <label class="custom">
+          <input type="number" id="custom-amount" min="1" max="10000" placeholder="Betrag" /> €
+        </label>
+      </div>
+      <button class="btn-gold js-donate-go">Spenden via Stripe</button>
+      <p class="hint" id="donate-hint"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const API = '/api';
+
+  async function goCheckout(path: string, body: Record<string, unknown>) {
+    const res = await fetch(`${API}/${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      throw new Error(data.error || 'Checkout fehlgeschlagen');
+    }
+  }
+
+  // Song purchase buttons (hero + cta)
+  document.querySelectorAll('.js-buy-song').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      btn.setAttribute('disabled', '');
+      try {
+        await goCheckout('checkout', {});
+      } catch (e) {
+        alert('Der Kauf ist momentan nicht verfügbar. Bitte versuche es später erneut.');
+        btn.removeAttribute('disabled');
+      }
+    });
+  });
+
+  // Donation panel
+  const panel = document.getElementById('donate-panel');
+  document.querySelector('.js-donate')?.addEventListener('click', () => {
+    if (panel) panel.hidden = !panel.hidden;
+    panel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  let selected = 1000;
+  const custom = document.getElementById('custom-amount') as HTMLInputElement | null;
+
+  document.querySelectorAll('.amount').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.amount').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      selected = Number(btn.getAttribute('data-amount'));
+      if (custom) custom.value = '';
+    });
+  });
+
+  custom?.addEventListener('input', () => {
+    document.querySelectorAll('.amount').forEach((b) => b.classList.remove('active'));
+    selected = Math.round(Number(custom.value) * 100);
+  });
+
+  document.querySelector('.js-donate-go')?.addEventListener('click', async (e) => {
+    const hint = document.getElementById('donate-hint');
+    const btn = e.currentTarget as HTMLButtonElement;
+    if (!selected || selected < 100) {
+      if (hint) hint.textContent = 'Bitte einen Betrag ab 1 € wählen.';
+      return;
+    }
+    btn.disabled = true;
+    try {
+      await goCheckout('donate', { amount: selected });
+    } catch {
+      if (hint) hint.textContent = 'Die Spende ist momentan nicht verfügbar. Bitte später erneut versuchen.';
+      btn.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .cta {
+    background:
+      radial-gradient(ellipse 65% 55% at 50% 100%, rgba(238, 208, 152, 0.07), transparent),
+      var(--bg-deep);
+    text-align: center;
+  }
+
+  .heading { font-size: clamp(2.2rem, 6vw, 4rem); }
+
+  .sub {
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+    color: var(--text-body);
+    margin-top: 1.2rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  .donate-panel {
+    margin-top: 3rem;
+    padding: 2.5rem clamp(1rem, 4vw, 3rem);
+    background: rgba(20, 25, 27, 0.55);
+    border: 1px solid rgba(238, 208, 152, 0.15);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.8rem;
+  }
+
+  .amounts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .amount {
+    background: transparent;
+    border: 1px solid rgba(238, 208, 152, 0.3);
+    color: var(--text-bright);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .amount:hover, .amount.active {
+    background: rgba(238, 208, 152, 0.12);
+    border-color: var(--gold);
+  }
+
+  .custom { color: var(--text-body); }
+
+  .custom input {
+    width: 90px;
+    background: transparent;
+    border: 1px solid rgba(238, 208, 152, 0.3);
+    border-radius: 4px;
+    color: var(--text-bright);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .hint { font-size: 0.85rem; color: var(--rose); min-height: 1.2em; }
+</style>

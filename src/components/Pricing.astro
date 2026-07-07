@@ -1,0 +1,108 @@
+---
+const cards = [
+  {
+    icon: 'star',
+    value: '0,99 €',
+    label: 'Der Song',
+    text: 'Ein bezahlbarer Preis für einen unbezahlbaren Moment. Verfügbar auf allen Plattformen.',
+  },
+  {
+    icon: 'heart',
+    value: '50 %',
+    label: 'Direkt an KKAD',
+    text: 'Die Hälfte aller Einnahmen geht an die Kinder Krebs Aktion Deutschland e.V., ohne Umwege.',
+  },
+  {
+    icon: 'thumb',
+    value: '100 %',
+    label: 'Hoffnung & Mut',
+    text: 'Jeder Klick ist eine Geste. Jede Geste ein Lichtblick. Für Kinder, die jeden Stern brauchen.',
+  },
+];
+---
+<section class="pricing">
+  <div class="container">
+    <div class="reveal">
+      <h2 class="serif heading">
+        Jeder Download.<br />Ein kleiner Stern für ein Kind.
+      </h2>
+      <p class="serif sub">Aus 0,99 Euro wird mehr als ein Song. Es wird ein Versprechen.</p>
+    </div>
+
+    <div class="cards">
+      {cards.map((c) => (
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">
+            {c.icon === 'star' && (
+              <svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="var(--gold-dim)" stroke-width="1.4">
+                <path d="M24 5 L29 19.5 L44 19.7 L32 28.8 L36.5 43.3 L24 34.5 L11.5 43.3 L16 28.8 L4 19.7 L19 19.5 Z" stroke-linejoin="round"/>
+              </svg>
+            )}
+            {c.icon === 'heart' && (
+              <svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="var(--gold-dim)" stroke-width="1.4">
+                <path d="M24 42 C10 32 4 24 4 16.5 C4 10 9 5.5 14.8 5.5 C18.6 5.5 22 7.5 24 10.8 C26 7.5 29.4 5.5 33.2 5.5 C39 5.5 44 10 44 16.5 C44 24 38 32 24 42 Z" stroke-linejoin="round"/>
+              </svg>
+            )}
+            {c.icon === 'thumb' && (
+              <svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="var(--gold-dim)" stroke-width="1.4">
+                <path d="M14 22 v20 H8 a2 2 0 0 1 -2 -2 V24 a2 2 0 0 1 2 -2 Z M14 23 L22 8 a4 4 0 0 1 4 4 v7 h11 a4 4 0 0 1 3.9 4.9 l-3 14 a4 4 0 0 1 -3.9 3.1 H14" stroke-linejoin="round"/>
+              </svg>
+            )}
+          </div>
+          <p class="serif value">{c.value}</p>
+          <p class="eyebrow label">{c.label}</p>
+          <p class="text">{c.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing { background: var(--bg-deep); text-align: center; }
+
+  .heading {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.25;
+  }
+
+  .sub {
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+    color: var(--text-body);
+    margin-top: 1.4rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.6rem;
+    margin-top: 4rem;
+  }
+
+  .card {
+    background: rgba(20, 25, 27, 0.5);
+    border: 1px solid rgba(238, 208, 152, 0.12);
+    border-radius: 8px;
+    padding: 3rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .card:hover {
+    border-color: rgba(238, 208, 152, 0.35);
+    transform: translateY(-4px);
+  }
+
+  .value {
+    font-size: 2.4rem;
+    color: var(--gold-soft);
+  }
+
+  .label { color: var(--text-bright); }
+
+  .text { font-size: 0.95rem; max-width: 30ch; }
+</style>

@@ -1,0 +1,166 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Footer from '../components/Footer.astro';
+
+// Confirmed partners & supporters (from the press releases).
+// Placeholder slots remain for future logos.
+const partners = [
+  {
+    name: 'TOPGEAR SPORTS',
+    role: 'Offizieller Supporter · Box-, MMA- & Fitnessausrüstung',
+    href: 'https://topgear-sport.de',
+  },
+  {
+    name: 'Kinder Krebs Aktion Deutschland e.V.',
+    role: 'Charity-Partner · hier kommt jede Hilfe an',
+    href: 'https://www.kinderkrebsaktion.de',
+  },
+  {
+    name: 'AG Management',
+    role: 'Projektmanagement · Andreas Greiner',
+    href: 'mailto:info@enilaangel.com',
+  },
+];
+const partnerPlaceholders = 3;
+
+const supporters = [
+  { name: 'Sandra Maas', role: 'Sängerin & Schauspielerin (Bibi und Tina)' },
+  { name: 'Steven Küchler', role: 'Boxsport' },
+  { name: 'Abdeladim Mis', role: 'Boxsport' },
+  { name: 'Arminius Rolle', role: 'Boxsport' },
+];
+const supporterPlaceholders = 4;
+---
+
+<Base title="Partner & Unterstützer | Kleiner Stern ganz groß">
+  <PageIntro
+    eyebrow="Gemeinsam stark"
+    title="Partner & Unterstützer"
+    subtitle="Dieses Projekt lebt von Menschen und Unternehmen, die mit anpacken."
+    image="/images/hero-2.jpg"
+    imageAlt="Vier Hände halten gemeinsam eine goldene Schleife"
+  />
+
+  <section class="partners">
+    <div class="container">
+      <h2 class="eyebrow eyebrow--gold section-title">Partner</h2>
+      <div class="grid grid-partners reveal">
+        {partners.map((p) => (
+          <a class="slot slot-named" href={p.href} target="_blank" rel="noopener">
+            <svg viewBox="0 0 48 48" width="28" height="28" fill="var(--gold)" aria-hidden="true">
+              <path d="M24 5 L29 19.5 L44 19.7 L32 28.8 L36.5 43.3 L24 34.5 L11.5 43.3 L16 28.8 L4 19.7 L19 19.5 Z"/>
+            </svg>
+            <span class="serif slot-name">{p.name}</span>
+            <span class="slot-role">{p.role}</span>
+          </a>
+        ))}
+        {Array.from({ length: partnerPlaceholders }).map(() => (
+          <div class="slot">
+            <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="var(--gold-dim)" stroke-width="1.3" aria-hidden="true">
+              <path d="M24 5 L29 19.5 L44 19.7 L32 28.8 L36.5 43.3 L24 34.5 L11.5 43.3 L16 28.8 L4 19.7 L19 19.5 Z" stroke-linejoin="round"/>
+            </svg>
+            <span class="eyebrow">Ihr Logo</span>
+          </div>
+        ))}
+      </div>
+
+      <h2 class="eyebrow eyebrow--gold section-title supporters-title">Unterstützer</h2>
+      <div class="grid grid-supporters reveal">
+        {supporters.map((s) => (
+          <div class="slot slot-small slot-named">
+            <span class="serif slot-name">{s.name}</span>
+            <span class="slot-role">{s.role}</span>
+          </div>
+        ))}
+        {Array.from({ length: supporterPlaceholders }).map(() => (
+          <div class="slot slot-small">
+            <span class="eyebrow">Platz für dich</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="join reveal">
+        <h2 class="serif">Werde Teil dieser Geschichte.</h2>
+        <p>
+          Ob Unternehmen, Verein oder Privatperson: Jede Unterstützung
+          bringt uns näher an das Ziel, krebskranken Kindern zu helfen.
+          Als Partner erhältst du hier deinen festen Platz.
+        </p>
+        <a class="btn-gold" href="mailto:info@enilaangel.com?subject=Partner%20werden%20-%20Kleiner%20Stern">
+          Partner werden
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Base>
+
+<style>
+  .partners { background: var(--bg-night); }
+
+  .section-title { margin-bottom: 2rem; }
+
+  .supporters-title { margin-top: 4rem; }
+
+  .grid { display: grid; gap: 1.2rem; }
+
+  .grid-partners { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+
+  .grid-supporters { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+
+  .slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    min-height: 130px;
+    background: rgba(20, 25, 27, 0.5);
+    border: 1px dashed rgba(238, 208, 152, 0.35);
+    border-radius: 10px;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+
+  .slot:hover {
+    border-color: var(--gold);
+    background: rgba(238, 208, 152, 0.05);
+  }
+
+  .slot-small { min-height: 90px; }
+
+  .slot-named {
+    border-style: solid;
+    border-color: rgba(238, 208, 152, 0.3);
+    text-decoration: none;
+    padding: 1.4rem 1rem;
+    text-align: center;
+  }
+
+  .slot-name {
+    color: var(--text-bright);
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+  }
+
+  .slot-role {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    max-width: 24ch;
+  }
+
+  .join {
+    margin-top: 5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+  }
+
+  .join h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+
+  .join p { max-width: 52ch; }
+</style>

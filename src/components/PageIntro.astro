@@ -1,0 +1,110 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  /** Optional hero photo, rendered like the homepage hero (cover + overlay + fade). */
+  image?: string;
+  imageAlt?: string;
+  /** Color the bottom fade blends into; must match the NEXT section's background. */
+  fadeTo?: 'deep' | 'night';
+}
+const { eyebrow, title, subtitle, image, imageAlt = '', fadeTo = 'night' } = Astro.props;
+---
+<section class:list={['page-intro', { 'has-image': !!image }]}>
+  {image && (
+    <>
+      <img
+        class="intro-img"
+        src={image}
+        alt={imageAlt}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="intro-overlay" aria-hidden="true"></div>
+      <div class:list={['intro-fade', `fade-${fadeTo}`]} aria-hidden="true"></div>
+    </>
+  )}
+  <div class="container content">
+    {eyebrow && <p class="eyebrow eyebrow--gold">{eyebrow}</p>}
+    <h1 class="serif">{title}</h1>
+    {subtitle && <p class="serif sub">{subtitle}</p>}
+  </div>
+</section>
+
+<style>
+  .page-intro {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 0%, rgba(61, 73, 77, 0.45), transparent),
+      var(--bg-deep);
+    padding: clamp(8rem, 16vw, 11rem) 0 clamp(3rem, 6vw, 4.5rem);
+    text-align: center;
+  }
+
+  .page-intro.has-image {
+    min-height: 62svh;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: clamp(3.5rem, 7vw, 5.5rem);
+  }
+
+  .intro-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: -2;
+  }
+
+  .intro-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 10, 12, 0.55) 0%,
+      rgba(10, 10, 12, 0.3) 45%,
+      rgba(10, 10, 12, 0.8) 100%
+    );
+  }
+
+  /* soft fade into the next section, same as the Start page hero */
+  .intro-fade {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 8rem;
+    z-index: -1;
+  }
+
+  .fade-night { background: linear-gradient(to top, var(--bg-night), transparent); }
+  .fade-deep { background: linear-gradient(to top, var(--bg-deep), transparent); }
+
+  .content { width: 100%; }
+
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    margin-top: 1.2rem;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
+  }
+
+  .has-image .eyebrow--gold { color: var(--gold-soft); }
+
+  .sub {
+    font-style: italic;
+    font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+    color: var(--text-body);
+    margin-top: 1.2rem;
+    max-width: 40em;
+    margin-inline: auto;
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
+  }
+
+  .has-image .sub { color: rgba(255, 255, 255, 0.92); }
+</style>

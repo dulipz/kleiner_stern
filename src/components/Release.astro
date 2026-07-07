@@ -1,0 +1,106 @@
+---
+---
+<section class="release">
+  <div class="container reveal">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 64 64" width="64" height="64" fill="none">
+        <circle cx="32" cy="32" r="30" stroke="var(--teal)" stroke-width="2"/>
+        <circle cx="32" cy="22" r="6" fill="var(--gold)"/>
+        <g stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round">
+          <path d="M32 11 v-4 M32 33 v4 M21 22 h-4 M43 22 h4 M24.2 14.2 l-2.8-2.8 M39.8 14.2 l2.8-2.8 M24.2 29.8 l-2.8 2.8 M39.8 29.8 l2.8 2.8"/>
+        </g>
+        <circle cx="26" cy="42" r="3.6" fill="var(--teal)"/>
+        <circle cx="38" cy="42" r="3.6" fill="var(--teal)"/>
+        <path d="M20 54 a6 6 0 0 1 12 0 Z M32 54 a6 6 0 0 1 12 0 Z" fill="var(--teal)"/>
+      </svg>
+    </div>
+
+    <h2 class="script release-title">Kleiner Stern ganz groß</h2>
+
+    <p class="serif release-lines">
+      Ein Song.<br />
+      Eine Mission.<br />
+      Ein Herz für Kinder.
+    </p>
+
+    <div class="divider-heart" aria-hidden="true">♥</div>
+
+    <div class="credits">
+      <div class="credit">
+        <span class="eyebrow">Von</span>
+        <span class="credit-name credit-teal">Andreas Greiner</span>
+      </div>
+      <div class="credit-sep" aria-hidden="true"></div>
+      <div class="credit">
+        <span class="eyebrow">Von</span>
+        <span class="credit-name credit-rose">Enilaangel</span>
+      </div>
+    </div>
+
+    <div class="release-date">
+      <p class="eyebrow">Release</p>
+      <p class="serif date">09.05.2026</p>
+      <p class="eyebrow time">0:15 Uhr</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .release {
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 0%, rgba(238, 208, 152, 0.05), transparent),
+      var(--bg-navy);
+    text-align: center;
+  }
+
+  .container { display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
+
+  .release-title {
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    text-shadow: 0 0 50px rgba(232, 201, 160, 0.3);
+  }
+
+  .release-lines {
+    font-size: 1.05rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-body);
+    line-height: 2.2;
+  }
+
+  .credits {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .credit { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .credit-sep { width: 1px; height: 56px; background: var(--gold-dim); opacity: 0.5; }
+
+  .credit-name {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .credit-teal { color: var(--teal); }
+  .credit-rose { color: var(--rose); }
+
+  .release-date { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+
+  @media (max-width: 640px) {
+    /* stack the credits so names never clip */
+    .credits { flex-direction: column; gap: 1.4rem; }
+    .credit-sep { width: 72px; height: 1px; }
+    .credit-name { font-size: 1.1rem; }
+  }
+
+  .date {
+    font-size: clamp(2.6rem, 6vw, 4rem);
+    color: var(--gold-soft);
+  }
+
+  .time { color: var(--text-muted); }
+</style>

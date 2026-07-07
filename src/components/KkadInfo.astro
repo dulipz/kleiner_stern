@@ -1,0 +1,66 @@
+---
+// KKAD e.V. info section (from the old site).
+---
+<section class="kkad">
+  <div class="container reveal inner">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 64 64" width="72" height="72" fill="none">
+        <circle cx="32" cy="32" r="30" stroke="var(--teal)" stroke-width="2"/>
+        <circle cx="32" cy="22" r="6" fill="var(--gold)"/>
+        <g stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round">
+          <path d="M32 11 v-4 M32 33 v4 M21 22 h-4 M43 22 h4 M24.2 14.2 l-2.8-2.8 M39.8 14.2 l2.8-2.8 M24.2 29.8 l-2.8 2.8 M39.8 29.8 l2.8 2.8"/>
+        </g>
+        <circle cx="26" cy="42" r="3.6" fill="var(--teal)"/>
+        <circle cx="38" cy="42" r="3.6" fill="var(--teal)"/>
+        <path d="M20 54 a6 6 0 0 1 12 0 Z M32 54 a6 6 0 0 1 12 0 Z" fill="var(--teal)"/>
+      </svg>
+    </div>
+
+    <h2 class="serif heading">Kinder Krebs Aktion Deutschland e.V.</h2>
+
+    <div class="text">
+      <p>
+        Der gemeinnützige Verein KKAD setzt sich seit Jahren für krebskranke
+        Kinder und ihre Familien ein. Im Mittelpunkt steht eine schnelle,
+        unbürokratische Hilfe: finanziell, emotional und praktisch, dort,
+        wo der Alltag zwischen Klinik, Therapie und Familie keinen Raum mehr
+        für anderes lässt.
+      </p>
+      <p>
+        Mit „Kleiner Stern ganz groß" wird jeder verkaufte Song zu einem
+        Beitrag, der ankommt. Kein Verwaltungs-Labyrinth. Kein „Vielleicht".
+        Sondern direkte Unterstützung für Menschen, die jede Hilfe brauchen und sie verdienen.
+      </p>
+    </div>
+
+    <a class="btn-ghost" href="https://www.kinderkrebsaktion.de" target="_blank" rel="noopener">
+      Mehr über KKAD
+    </a>
+  </div>
+</section>
+
+<style>
+  .kkad {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(77, 182, 172, 0.06), transparent),
+      var(--bg-deep);
+    text-align: center;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .heading { font-size: clamp(1.9rem, 4.5vw, 3rem); }
+
+  .text {
+    max-width: 720px;
+    text-align: left;
+  }
+
+  .text p { margin-bottom: 1.4rem; font-size: 1.05rem; }
+  .text p:last-child { margin-bottom: 0; }
+</style>

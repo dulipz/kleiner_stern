@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import About from '../components/About.astro';
+import KkadInfo from '../components/KkadInfo.astro';
+import Project from '../components/Project.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base title="Über | Kleiner Stern ganz groß">
+  <PageIntro
+    eyebrow="Über das Projekt"
+    title="Die Menschen hinter dem Stern"
+    subtitle="Eine Künstlerin, ein Verein, eine Mission."
+    image="/images/hero-3.jpg"
+    imageAlt="Gehäkelter Teddybär und goldene Schleife auf einer Fensterbank, im Hintergrund ein spielendes Kind"
+    fadeTo="deep"
+  />
+  <About />
+  <KkadInfo />
+  <Project />
+  <Footer />
+</Base>

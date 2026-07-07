@@ -1,0 +1,161 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Press from '../components/Press.astro';
+import Footer from '../components/Footer.astro';
+
+// Press releases - items with `link` point to the published article.
+const releases = [
+  {
+    date: '07.07.2026',
+    title: 'Warum ein Boxmanager heute für Hoffnung kämpft',
+    text: 'Andreas Greiner – Der Mann hinter der Vision von „Kleiner Stern ganz groß". Mit dem Charity-Projekt verfolgt der Boxmanager und Promoter eine Vision, die Musik, Sport, Wirtschaft und gesellschaftliches Engagement miteinander verbindet.',
+    link: 'https://www.firmenpresse.de/pressinfo2260767.html',
+    linkLabel: 'Weiterlesen auf firmenpresse.de →',
+  },
+  {
+    date: '04.07.2026',
+    title: 'Sandra Maas (Bibi und Tina) unterstützt das Herzensprojekt „Kleiner Stern ganz groß"',
+    text: 'Die Schlagersängerin und Schauspielerin Sandra Maas begleitet das Projekt künftig als offizielle Supporterin: „Musik kann Menschen verbinden und Hoffnung schenken. Wenn wir gemeinsam Aufmerksamkeit für schwerkranke Kinder schaffen und ihnen ein Lächeln schenken können, ist das jede Unterstützung wert."',
+    link: 'https://www.firmenpresse.de/pressinfo2260261-sandra-maas-bibi-und-tina-unterstuetzt-das-herzensprojekt-kleiner-stern-ganz-gross-von-enilaangel.html',
+    linkLabel: 'Weiterlesen auf firmenpresse.de →',
+  },
+  {
+    date: '30.06.2026',
+    title: 'TOPGEAR SPORTS wird neuer Supporter von Enilaangel',
+    text: 'Das Charity-Projekt begrüßt einen bedeutenden neuen Partner: Der international anerkannte Hersteller für Box-, MMA- und Fitnessausrüstung unterstützt „Kleiner Stern ganz groß" ab sofort als offizieller Supporter, ein starkes Zeichen dafür, dass Sport und soziales Engagement untrennbar verbunden sein können.',
+    link: 'https://www.firmenpresse.de/pressinfo2259413-topgear-sports-wird-neuer-supporter-von-enilaangel.html',
+    linkLabel: 'Weiterlesen auf firmenpresse.de →',
+  },
+];
+---
+
+<Base title="Presse | Kleiner Stern ganz groß">
+  <PageIntro
+    eyebrow="Presse"
+    title="Pressebereich"
+    subtitle="Pressemitteilungen, Stimmen und Material zum Projekt."
+    image="/images/hero-5.jpg"
+    imageAlt="Goldenes Herz mit Kindersilhouette und goldener Schleife vor einer Weltkarte"
+  />
+
+  <section class="releases">
+    <div class="container">
+      <h2 class="eyebrow eyebrow--gold section-title">Pressemitteilungen</h2>
+      <div class="list">
+        {releases.map((r) => (
+          <article class="release-item reveal">
+            <p class="eyebrow date">{r.date}</p>
+            <h3 class="serif">{r.title}</h3>
+            <p class="text">{r.text}</p>
+            {r.link ? (
+              <a class="download" href={r.link} target="_blank" rel="noopener">
+                {r.linkLabel}
+              </a>
+            ) : (
+              <a class="download" href="mailto:info@enilaangel.com?subject=Pressemitteilung%20anfordern">
+                Volltext anfordern →
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Press />
+
+  <section class="presskit">
+    <div class="container reveal inner">
+      <h2 class="eyebrow eyebrow--gold section-title">Pressematerial</h2>
+      <div class="kit-grid">
+        <a class="kit-item" href="/images/cover-kleiner-stern.jpg" download>
+          <img src="/images/cover-kleiner-stern.jpg" alt="Cover-Artwork zum Download" loading="lazy" />
+          <span class="eyebrow">Cover-Artwork ↓</span>
+        </a>
+        <div class="kit-contact">
+          <h3 class="serif">Pressekontakt</h3>
+          <p>
+            Für Interviews, Bildmaterial in Druckqualität und weitere
+            Informationen:
+          </p>
+          <a class="btn-ghost" href="mailto:info@enilaangel.com?subject=Presseanfrage">
+            info@enilaangel.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Base>
+
+<style>
+  .releases { background: var(--bg-night); }
+
+  .section-title { margin-bottom: 2.5rem; }
+
+  .list { display: grid; gap: 1.5rem; }
+
+  .release-item {
+    background: rgba(20, 25, 27, 0.5);
+    border: 1px solid rgba(238, 208, 152, 0.14);
+    border-left: 3px solid var(--gold-dim);
+    border-radius: 0 10px 10px 0;
+    padding: 2rem clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .date { color: var(--text-muted); margin-bottom: 0.8rem; }
+
+  h3 {
+    font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+    margin-bottom: 0.9rem;
+  }
+
+  .text { max-width: 70ch; margin-bottom: 1.2rem; }
+
+  .download {
+    color: var(--gold-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .download:hover { text-decoration: underline; }
+
+  .presskit { background: var(--bg-night); }
+
+  .kit-grid {
+    display: grid;
+    grid-template-columns: 0.6fr 1.4fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .kit-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    text-decoration: none;
+    max-width: 260px;
+  }
+
+  .kit-item img {
+    border-radius: 8px;
+    border: 1px solid rgba(238, 208, 152, 0.25);
+  }
+
+  .kit-item span { color: var(--gold-soft); }
+
+  .kit-contact h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 1rem;
+  }
+
+  .kit-contact p { margin-bottom: 1.8rem; max-width: 44ch; }
+
+  @media (max-width: 720px) {
+    .kit-grid { grid-template-columns: 1fr; }
+  }
+</style>

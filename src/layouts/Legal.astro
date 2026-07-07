@@ -1,0 +1,64 @@
+---
+import Base from './Base.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { title: string }
+const { title } = Astro.props;
+---
+
+<Base title={`${title} | Kleiner Stern ganz groß`}>
+  <main class="legal">
+    <div class="container">
+      <a href="/" class="back">← Zurück</a>
+      <h1 class="serif">{title}</h1>
+      <div class="content">
+        <slot />
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .legal {
+    background: var(--bg-night);
+    padding: clamp(9rem, 16vw, 12rem) 0 clamp(4rem, 8vw, 7rem);
+    min-height: 60svh;
+  }
+
+  .container { max-width: 760px; }
+
+  .back {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+
+  .back:hover { color: var(--gold-soft); }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    margin: 1.5rem 0 2.5rem;
+  }
+
+  .content :global(h2) {
+    font-family: var(--font-serif);
+    color: var(--gold-soft);
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+  }
+
+  .content :global(p) { margin-bottom: 1rem; }
+
+  .content :global(a) { color: var(--gold-soft); }
+
+  .content :global(.placeholder) {
+    background: rgba(238, 208, 152, 0.08);
+    border-left: 3px solid var(--gold-dim);
+    padding: 1rem 1.2rem;
+    border-radius: 0 6px 6px 0;
+    color: var(--text-bright);
+  }
+</style>
