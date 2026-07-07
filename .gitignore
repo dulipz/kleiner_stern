@@ -7,5 +7,5 @@ dist/
 .DS_Store
 oldsite_images/
 oldsite.html
-# source assets (optimized copies live in public/images)
-Images/
+# source assets in the project root only (optimized copies live in public/images)
+/Images/
