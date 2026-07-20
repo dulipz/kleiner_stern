@@ -1,9 +1,6 @@
 ---
-// Hero V2 - full-bleed photo background, black & white text.
-// Pattern modeled on Lanka Reisen's Hero.astro (absolute object-cover image,
-// gradient overlays, content anchored bottom-left).
-//
-// Photo: save the ribbon image as  public/images/hero-ribbon.jpg
+// Hero V2 - ribbon photo background combined with the Enilaangel portrait
+// and artist text on the first screen.
 ---
 <header class="hero2">
   <img
@@ -15,29 +12,47 @@
     decoding="async"
   />
 
-  <!-- overlays: darken top + bottom for readable text (Lanka Reisen pattern) -->
   <div class="hero2-overlay" aria-hidden="true"></div>
   <div class="hero2-fade" aria-hidden="true"></div>
 
-  <div class="container hero2-content">
-    <p class="eyebrow hero2-eyebrow">
-      Ein Song &nbsp;·&nbsp; Eine Mission &nbsp;·&nbsp; Ein Herz für Kinder
-    </p>
+  <div class="container hero2-grid">
+    <!-- ===== text ===== -->
+    <div class="hero2-copy">
+      <p class="eyebrow hero2-eyebrow">
+        Ein Song &nbsp;·&nbsp; Eine Mission &nbsp;·&nbsp; Ein Herz für Kinder
+      </p>
 
-    <h1 class="hero2-title">
-      <span class="script hero2-script">Kleiner Stern</span>
-      <span class="serif hero2-serif">Ganz Gross</span>
-    </h1>
+      <h1 class="hero2-title">
+        <span class="script hero2-script">Kleiner Stern</span>
+        <span class="serif hero2-serif">Ganz Gross</span>
+      </h1>
 
-    <p class="hero2-sub">
-      Für 0,99 € einen Song. Für ein Kind einen kleinen Stern.<br />
-      <strong>50 %</strong> gehen direkt an krebskranke Kinder.
-    </p>
+      <p class="serif hero2-artist">Eine Stimme, die Hoffnung trägt.</p>
 
-    <div class="hero2-actions">
-      <button class="btn-bw js-buy-song">♫ &nbsp;Jetzt anhören · 0,99 €</button>
-      <a href="#quote" class="btn-bw-ghost">Mehr erfahren</a>
+      <p class="hero2-sub">
+        Enilaangel ist Singer-Songwriterin aus Sachsen. Mit „Kleiner Stern
+        ganz groß" widmet sie ihre Musik den Kindern, die ihre eigenen,
+        unsichtbaren Kämpfe austragen.<br />
+        <strong>50 %</strong> gehen direkt an krebskranke Kinder.
+      </p>
+
+      <div class="hero2-actions">
+        <button class="btn-bw js-buy-song">♫ &nbsp;Jetzt anhören · 0,99 €</button>
+        <a href="/ueber" class="btn-bw-ghost">Enilaangel kennenlernen</a>
+      </div>
     </div>
+
+    <!-- ===== portrait ===== -->
+    <figure class="hero2-portrait">
+      <img
+        src="/images/enila-portrait.jpg"
+        alt="Enilaangel mit goldener Maske, ein Kind im Arm: Gemeinsam lassen wir kleine Sterne ganz groß erstrahlen"
+        loading="eager"
+        decoding="async"
+        width="772"
+        height="1156"
+      />
+    </figure>
   </div>
 
   <a href="#quote" class="hero2-scroll" aria-label="Weiter scrollen">
@@ -52,10 +67,11 @@
   .hero2 {
     position: relative;
     isolation: isolate;
-    min-height: 88svh;
+    min-height: 100svh;
     display: flex;
+    align-items: center;
     overflow: hidden;
-    background: var(--bg-navy); /* fallback while photo loads / if missing */
+    background: var(--bg-navy);
   }
 
   .hero2-img {
@@ -64,22 +80,20 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 65% center; /* keep ribbon + hand visible */
+    object-position: 65% center;
   }
 
-  /* dark gradient: stronger at bottom where the text sits */
   .hero2-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(10, 10, 12, 0.55) 0%,
-      rgba(10, 10, 12, 0.25) 40%,
-      rgba(10, 10, 12, 0.78) 100%
+      rgba(10, 10, 12, 0.6) 0%,
+      rgba(10, 10, 12, 0.4) 45%,
+      rgba(10, 10, 12, 0.8) 100%
     );
   }
 
-  /* bottom fade into the next (dark) section */
   .hero2-fade {
     position: absolute;
     inset-inline: 0;
@@ -88,15 +102,21 @@
     background: linear-gradient(to top, var(--bg-deep), transparent);
   }
 
-  .hero2-content {
+  .hero2-grid {
     position: relative;
     z-index: 10;
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    padding: 8.5rem 0 6rem;
+  }
+
+  .hero2-copy {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-end;
-    gap: 1.4rem;
-    padding: 8rem 0 7rem;
+    gap: 1.3rem;
   }
 
   .hero2-eyebrow { color: rgba(255, 255, 255, 0.85); }
@@ -105,25 +125,32 @@
 
   .hero2-script {
     color: #ffffff;
-    font-size: clamp(3.2rem, 9vw, 6rem);
+    font-size: clamp(3rem, 7vw, 5.4rem);
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.55);
   }
 
   .hero2-serif {
     color: #ffffff;
-    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-size: clamp(1.5rem, 3.4vw, 2.5rem);
     letter-spacing: 0.3em;
     text-transform: uppercase;
     margin-top: 0.6rem;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
   }
 
+  .hero2-artist {
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+    color: var(--gold-soft);
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
+  }
+
   .hero2-sub {
     color: rgba(255, 255, 255, 0.92);
-    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-size: clamp(0.98rem, 1.8vw, 1.12rem);
     line-height: 1.8;
     text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
-    max-width: 34em;
+    max-width: 36em;
   }
 
   .hero2-sub strong { color: #ffffff; font-weight: 500; }
@@ -132,10 +159,28 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
   }
 
-  /* ---------- black & white buttons ---------- */
+  /* ===== portrait card ===== */
+  .hero2-portrait {
+    justify-self: end;
+    width: min(100%, 380px);
+    border: 1px solid rgba(238, 208, 152, 0.45);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.6),
+      0 0 60px rgba(238, 208, 152, 0.15);
+    transform: rotate(1.5deg);
+    transition: transform 0.4s ease;
+  }
+
+  .hero2-portrait:hover { transform: rotate(0deg) scale(1.015); }
+
+  .hero2-portrait img { width: 100%; height: auto; display: block; }
+
+  /* ===== buttons ===== */
   .btn-bw {
     display: inline-flex;
     align-items: center;
@@ -205,22 +250,28 @@
     50% { transform: translateX(-50%) translateY(8px); }
   }
 
-  @media (max-width: 720px) {
-    /* photo as full background (cover), shifted so the ribbon sits centered */
+  @media (max-width: 860px) {
     .hero2-img { object-position: 76% center; }
 
-    .hero2-content {
-      align-items: center;
-      text-align: center;
-      justify-content: flex-start;
-      padding: 9.5rem 0 6rem;
+    .hero2-grid {
+      grid-template-columns: 1fr;
+      padding: 8rem 0 6rem;
+      gap: 2.5rem;
     }
 
-    /* smaller, equal-sized, centered buttons */
+    .hero2-copy { align-items: center; text-align: center; }
+
+    .hero2-portrait {
+      justify-self: center;
+      width: min(72vw, 320px);
+      transform: rotate(0deg);
+    }
+
     .hero2-actions {
       justify-content: center;
       width: 100%;
     }
+
     .btn-bw, .btn-bw-ghost {
       font-size: 0.75rem;
       padding: 0.85rem 1.5rem;
@@ -231,5 +282,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     .hero2-scroll { animation: none; }
+    .hero2-portrait { transition: none; }
   }
 </style>
