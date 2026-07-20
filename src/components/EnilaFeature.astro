@@ -1,0 +1,106 @@
+---
+// Landing-page artist feature: Enilaangel front and center.
+---
+<section class="enila">
+  <div class="container grid">
+    <figure class="portrait reveal">
+      <img
+        src="/images/enila-portrait.jpg"
+        alt="Enilaangel mit goldener Maske, ein Kind im Arm: Gemeinsam lassen wir kleine Sterne ganz groß erstrahlen"
+        loading="lazy"
+        width="772"
+        height="1156"
+      />
+    </figure>
+
+    <div class="copy reveal">
+      <img class="logo" src="/images/enila-logo.png" alt="" aria-hidden="true" loading="lazy" />
+      <p class="eyebrow eyebrow--gold tag">Die Künstlerin</p>
+      <h2 class="serif heading">Eine Stimme,<br />die Hoffnung trägt.</h2>
+      <p class="lead">
+        Enilaangel ist Singer-Songwriterin aus Sachsen. Hinter ihrer goldenen
+        Maske steht eine klare Botschaft: Es zählt nicht, wie jemand aussieht,
+        sondern was seine Stimme bewegt.
+      </p>
+      <p class="text">
+        Mit „Kleiner Stern ganz groß" widmet sie ihre Musik den Kindern, die
+        ihre eigenen, unsichtbaren Kämpfe austragen. Gemeinsam lassen wir
+        kleine Sterne ganz groß erstrahlen.
+      </p>
+      <div class="actions">
+        <a class="btn-gold" href="/ueber">Enilaangel kennenlernen</a>
+        <a class="btn-ghost" href="/#hoerprobe">♫ &nbsp;Hörprobe</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .enila {
+    background:
+      radial-gradient(ellipse 70% 60% at 30% 40%, rgba(238, 208, 152, 0.07), transparent),
+      var(--bg-night);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .portrait {
+    border: 1px solid rgba(238, 208, 152, 0.4);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(238, 208, 152, 0.12);
+    max-width: 460px;
+    justify-self: center;
+  }
+
+  .portrait img { width: 100%; height: auto; display: block; }
+
+  .logo {
+    height: 64px;
+    width: auto;
+    margin-bottom: 1.6rem;
+    filter: drop-shadow(0 0 14px rgba(232, 201, 160, 0.35));
+  }
+
+  .tag {
+    border-bottom: 1px solid var(--gold-dim);
+    display: inline-block;
+    padding-bottom: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .heading {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.15;
+    margin-bottom: 1.6rem;
+  }
+
+  .lead {
+    font-size: 1.12rem;
+    color: var(--text-bright);
+    margin-bottom: 1.2rem;
+    max-width: 36em;
+  }
+
+  .text { margin-bottom: 2.2rem; max-width: 38em; }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  @media (max-width: 820px) {
+    .grid { grid-template-columns: 1fr; }
+    .copy { text-align: center; }
+    .logo { margin-inline: auto; }
+    .tag { margin-inline: auto; }
+    .lead, .text { margin-inline: auto; }
+    .actions { justify-content: center; }
+  }
+</style>
