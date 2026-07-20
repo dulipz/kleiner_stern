@@ -9,3 +9,8 @@ oldsite_images/
 oldsite.html
 # source assets in the project root only (optimized copies live in public/images)
 /Images/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
